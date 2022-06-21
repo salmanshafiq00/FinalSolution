@@ -10,7 +10,7 @@ using POSSolution.Infrastructure;
 namespace POSSolution.Infrastructure.Migrations
 {
     [DbContext(typeof(POSContext))]
-    [Migration("20220621060520_init")]
+    [Migration("20220621083943_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -273,9 +273,6 @@ namespace POSSolution.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PurchaseDetailsId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("PurchasePrice")
                         .HasColumnType("decimal(18,2)");
 
@@ -302,8 +299,6 @@ namespace POSSolution.Infrastructure.Migrations
                     b.HasIndex("BrandId");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("PurchaseDetailsId");
 
                     b.HasIndex("UnitId");
 
@@ -337,6 +332,9 @@ namespace POSSolution.Infrastructure.Migrations
                     b.Property<decimal>("Discount")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ItemName")
                         .HasColumnType("nvarchar(max)");
 
@@ -362,6 +360,8 @@ namespace POSSolution.Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ItemId");
 
                     b.HasIndex("PurchaseInvoiceId");
 
@@ -843,10 +843,6 @@ namespace POSSolution.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("POSSolution.Core.Models.PurchaseDetails", null)
-                        .WithMany("Items")
-                        .HasForeignKey("PurchaseDetailsId");
-
                     b.HasOne("POSSolution.Core.Models.Unit", "Unit")
                         .WithMany("Items")
                         .HasForeignKey("UnitId")
@@ -869,11 +865,19 @@ namespace POSSolution.Infrastructure.Migrations
 
             modelBuilder.Entity("POSSolution.Core.Models.PurchaseDetails", b =>
                 {
+                    b.HasOne("POSSolution.Core.Models.Item", "Items")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("POSSolution.Core.Models.PurchaseInvoice", "PurchaseInvoice")
                         .WithMany("PurchaseDetails")
                         .HasForeignKey("PurchaseInvoiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Items");
 
                     b.Navigation("PurchaseInvoice");
                 });
@@ -1036,11 +1040,6 @@ namespace POSSolution.Infrastructure.Migrations
             modelBuilder.Entity("POSSolution.Core.Models.ExpenseCategory", b =>
                 {
                     b.Navigation("Expenses");
-                });
-
-            modelBuilder.Entity("POSSolution.Core.Models.PurchaseDetails", b =>
-                {
-                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("POSSolution.Core.Models.PurchaseInvoice", b =>

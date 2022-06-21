@@ -1,0 +1,79 @@
+insert into dbo.Brands (Name, Desciption) values
+('Walton', 'National brand'), 
+('Samsung', 'International')
+;
+go
+
+insert into dbo.Categories values
+('Mobile', 'Mobile brand'),
+('TV', 'TV catagory');
+go
+
+insert into dbo.Countries values
+('Bangladesh'),
+('Pakistan'),
+('Maldives'),
+('Nepal'),
+('India');
+go
+
+insert into dbo.States values
+('KHulna', 1),
+('Dhaka', 1),
+('Chattagram',1),
+('Delhy', 3),
+('Karachi', 2);
+go
+
+
+insert into dbo.Cities values
+('Shahbag', 2),
+('Savar', 2),
+('Cumilla',3),
+('Gazipur', 1),
+('KhalishPur', 1);
+go
+Insert into Unit Values('Kg', 'Kilogram'), ('ltr', 'Liter');
+
+go
+insert into dbo.CompanyInfos values
+('Arif Company Ltd',1,1,0238542,01812345678,'ar@gmail.com','V123','TXN123','null'),
+('Miza Bro Ltd',2,2 ,0238543,01812345679,'miza@gmail.com','V124','TXN124','null'),
+('Shofi Bros Ltd',3,3 ,0238533,01812345689,'shofi@gmail.com','V125','TXN125','null'),
+('Ray Bro Ltd',4,4,0238555,01812345655,'ray@gmail.com','V126','TXN126','null');
+
+
+insert into dbo.Customers values
+('Arif','ar@gmail.com','02123456','TXN222',300.00,1,1,1,'Z123','Hatimara'),
+('Miza','miza@gmail.com','02123457','TXN223',300.00,2,2,2,'Z124','Ghoramara'),
+('Shofi','shofi@gmail.com','02123458','TXN224',300.00,3,3,3,'Z125','Gorumara');
+
+insert into dbo.Suppliers values
+('Arif', 0181123456 , 02123456 , 'ar@gmail.com','TXN123', 300.00, 1,1,1,'Z123', 'Hatimara'),
+('Ray', 0181123457 , 02123457 , 'ray@gmail.com','TXN124', 300.00, 2,2,2,'Z124', 'Veramara'),
+('Miza', 0181123458 , 02123458 , 'miza@gmail.com','TXN125', 300.00, 3,3,3,'Z125', 'Gorumara');
+
+Insert into PurchaseInvoices Values ('IN1003', 1, 2, '2022-12-12', 1, 'Hello', 10, 500000, 0, 0, 500000, 'Tata')
+Insert into PurchaseInvoices Values ('IN1004', 1, 2, '2022-12-12', 1, 'Hello', 15, 100000, 0, 0, 100000, 'Tatatata')
+Insert into PurchaseInvoices Values ('IN1005', 1, 2, '2022-12-12', 1, 'Hello', 20, 300000, 0, 0, 300000, 'Tatass')
+
+
+insert into dbo.Items values
+('Walton','W-123',1,1,1,'M-W123',1,1000,'2022/02/02','A123456','Mobile','null',0,20000.00,10,1,30000.00,4500.00),
+('Samsung','Sg-123',2,2,1,'M-Sg123',2,2000,'2022/02/02','A123455','Mobile','null',0,20000.00,10,1,30000.00,4500.00),
+('Oppo','Op-123',3,3,2,'M-Op123',3,3000,'2022/02/02','A123457','Mobile','null',0,20000.00,10,1,30000.00,4500.00);
+
+PurchaseDetails {
+  "id": 0,
+  "itemName": "Fridge",
+  "quantity": 7,
+  "purchasePrice": 50000,
+  "discount": 0,
+  "tax": 0,
+  "taxAmount": 0,
+  "unitCost": 50000,
+  "totalAmount": 500000,
+  "purchaseInvoiceId": 1,
+  "itemId": 1
+  
+}

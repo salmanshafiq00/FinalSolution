@@ -171,6 +171,54 @@ namespace POSSolution.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Items",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ItemCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BrandId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    UnitId = table.Column<int>(type: "int", nullable: false),
+                    SKU = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MinimumQty = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    LotNumber = table.Column<int>(type: "int", nullable: false),
+                    ExpireDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Barcode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StockQuantity = table.Column<int>(type: "int", nullable: false),
+                    PurchasePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Tax = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TaxType = table.Column<int>(type: "int", nullable: false),
+                    SalesPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    FinalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Items", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Items_Brands_BrandId",
+                        column: x => x.BrandId,
+                        principalTable: "Brands",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Items_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Items_Units_UnitId",
+                        column: x => x.UnitId,
+                        principalTable: "Units",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Cities",
                 columns: table => new
                 {
@@ -493,11 +541,18 @@ namespace POSSolution.Infrastructure.Migrations
                     TaxAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     UnitCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PurchaseInvoiceId = table.Column<int>(type: "int", nullable: false)
+                    PurchaseInvoiceId = table.Column<int>(type: "int", nullable: false),
+                    ItemId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PurchaseDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PurchaseDetails_Items_ItemId",
+                        column: x => x.ItemId,
+                        principalTable: "Items",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PurchaseDetails_PurchaseInvoices_PurchaseInvoiceId",
                         column: x => x.PurchaseInvoiceId,
@@ -526,61 +581,6 @@ namespace POSSolution.Infrastructure.Migrations
                         name: "FK_PurchasePayments_PurchaseInvoices_PurchaseInvoiceId",
                         column: x => x.PurchaseInvoiceId,
                         principalTable: "PurchaseInvoices",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Items",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ItemCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BrandId = table.Column<int>(type: "int", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    UnitId = table.Column<int>(type: "int", nullable: false),
-                    SKU = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MinimumQty = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    LotNumber = table.Column<int>(type: "int", nullable: false),
-                    ExpireDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Barcode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StockQuantity = table.Column<int>(type: "int", nullable: false),
-                    PurchasePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Tax = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TaxType = table.Column<int>(type: "int", nullable: false),
-                    SalesPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    FinalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PurchaseDetailsId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Items", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Items_Brands_BrandId",
-                        column: x => x.BrandId,
-                        principalTable: "Brands",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Items_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Items_PurchaseDetails_PurchaseDetailsId",
-                        column: x => x.PurchaseDetailsId,
-                        principalTable: "PurchaseDetails",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Items_Units_UnitId",
-                        column: x => x.UnitId,
-                        principalTable: "Units",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -631,14 +631,14 @@ namespace POSSolution.Infrastructure.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Items_PurchaseDetailsId",
-                table: "Items",
-                column: "PurchaseDetailsId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Items_UnitId",
                 table: "Items",
                 column: "UnitId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PurchaseDetails_ItemId",
+                table: "PurchaseDetails",
+                column: "ItemId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PurchaseDetails_PurchaseInvoiceId",
@@ -727,7 +727,7 @@ namespace POSSolution.Infrastructure.Migrations
                 name: "Expenses");
 
             migrationBuilder.DropTable(
-                name: "Items");
+                name: "PurchaseDetails");
 
             migrationBuilder.DropTable(
                 name: "PurchasePayments");
@@ -751,16 +751,10 @@ namespace POSSolution.Infrastructure.Migrations
                 name: "ExpenseCategories");
 
             migrationBuilder.DropTable(
-                name: "Brands");
+                name: "Items");
 
             migrationBuilder.DropTable(
-                name: "Categories");
-
-            migrationBuilder.DropTable(
-                name: "PurchaseDetails");
-
-            migrationBuilder.DropTable(
-                name: "Units");
+                name: "PurchaseInvoices");
 
             migrationBuilder.DropTable(
                 name: "SalesInvoices");
@@ -769,19 +763,25 @@ namespace POSSolution.Infrastructure.Migrations
                 name: "Roles");
 
             migrationBuilder.DropTable(
-                name: "PurchaseInvoices");
+                name: "Brands");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Units");
+
+            migrationBuilder.DropTable(
+                name: "Suppliers");
+
+            migrationBuilder.DropTable(
+                name: "CompanyInfos");
 
             migrationBuilder.DropTable(
                 name: "Customers");
 
             migrationBuilder.DropTable(
                 name: "Sales");
-
-            migrationBuilder.DropTable(
-                name: "CompanyInfos");
-
-            migrationBuilder.DropTable(
-                name: "Suppliers");
 
             migrationBuilder.DropTable(
                 name: "Cities");

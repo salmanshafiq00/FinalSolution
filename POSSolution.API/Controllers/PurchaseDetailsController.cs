@@ -28,21 +28,35 @@ namespace POSSolution.API.Controllers
                 }
                 else
                 {
-                    await _dbSet.AddAsync(entity);
+                    await _context.PurchaseDetails.AddAsync(entity);
                     int AffectedRow =  await _context.SaveChangesAsync();
                     if (AffectedRow != 0)
                     {
-                        var QuantiyAmount = _dbSet.Select(s => s.Quantity);
+                        int QuantityToAdd = _context.PurchaseDetails.Where(w => w.Id == entity.Id).Select(s => s.Quantity).FirstOrDefault();
+                        int itemId = entity.ItemId;
+                        Item itemForUpdate = await UpdateStock(itemId);
+                        itemForUpdate.StockQuantity = itemForUpdate.StockQuantity + QuantityToAdd;
+                        _context.Items.Attach(itemForUpdate);
+                        _context.Entry(itemForUpdate).Property(q => q.StockQuantity).IsModified = true;
+                        _context.SaveChanges();
+
                     }
                     return Ok(entity);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error creating new  record");
+                //return StatusCode(StatusCodes.Status500InternalServerError,
+                //    "Error creating new  record");
+                throw new Exception(ex.Message);
             }
+        }
+
+        private async Task<Item> UpdateStock(int itemId)
+        {
+            Item item = await _context.Items.FindAsync(itemId);
+            return item;
         }
 
     }

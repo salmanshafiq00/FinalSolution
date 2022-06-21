@@ -110,14 +110,14 @@ namespace POSSolution.API.Controllers
                     await context.SaveChangesAsync();
                     return Ok(entity);
                 }
-            }
+        }
             catch (Exception)
             {
 
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error creating new  record");
-            }
-        }
+    }
+}
 
         //Put: api/cotroller/id
         [HttpPut("{id}")]

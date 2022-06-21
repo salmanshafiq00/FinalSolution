@@ -9,7 +9,6 @@ namespace POSSolution.Core.Models
 {
     public class PurchaseDetails : BaseModel
     {
-        
         public string ItemName { get; set; }
         public int Quantity { get; set; }
         public decimal PurchasePrice { get; set; }
@@ -21,7 +20,8 @@ namespace POSSolution.Core.Models
         [ForeignKey("PurchaseInvoice")]
         public int PurchaseInvoiceId { get; set; }
         public PurchaseInvoice PurchaseInvoice { get; set; }
-
-        public List<Item> Items { get; set; }
+        [ForeignKey("Item")]
+        public int ItemId { get; set; }
+        public Item Items { get; set; }
     }
 }
