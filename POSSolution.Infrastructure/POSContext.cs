@@ -32,20 +32,20 @@ namespace POSSolution.Infrastructure
         public DbSet<Purchase> Purchases { get; set; }
         public DbSet<PurchaseDetails> PurchaseDetails { get; set; }
         public DbSet<PurchaseInvoice> PurchaseInvoices { get; set; }
+        public DbSet<PurchaseReturnInvoice>  PurchaseReturnInvoices { get; set; }
+        public DbSet<PurchaseReturnDetails>  PurchaseReturnDetails { get; set; }
         public DbSet<PurchasePayment> PurchasePayments { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Sales> Sales { get; set; }
         public DbSet<SalesDetails> SalesDetails { get; set; }
         public DbSet<SalesInvoice> SalesInvoices { get; set; }
+        public DbSet<SalesReturnInvoice> SalesReturnInvoices { get; set; }
+        public DbSet<SalesReturnDetails> SalesReturnDetails { get; set; }
         public DbSet<SalesPayment> SalesPayments { get; set; }
         public DbSet<SalesReturn> SalesReturns { get; set; }
         public DbSet<State> States { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Unit> Units { get; set; }
         public DbSet<User> Users { get; set; }
-
-
-
-
     }
 }

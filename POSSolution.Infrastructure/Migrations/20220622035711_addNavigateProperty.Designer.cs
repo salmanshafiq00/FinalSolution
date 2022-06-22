@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using POSSolution.Infrastructure;
 
 namespace POSSolution.Infrastructure.Migrations
 {
     [DbContext(typeof(POSContext))]
-    partial class POSContextModelSnapshot : ModelSnapshot
+    [Migration("20220622035711_addNavigateProperty")]
+    partial class addNavigateProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -443,119 +445,11 @@ namespace POSSolution.Infrastructure.Migrations
                     b.Property<int>("PurchaseInvoiceId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PurchaseReturnInvoiceId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("PurchaseInvoiceId");
 
-                    b.HasIndex("PurchaseReturnInvoiceId");
-
                     b.ToTable("PurchasePayments");
-                });
-
-            modelBuilder.Entity("POSSolution.Core.Models.PurchaseReturnDetails", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("ItemId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ItemName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("PurchasePrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("PurchaseReturnInvoiceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Tax")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TaxAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TotalAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("UnitCost")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ItemId");
-
-                    b.HasIndex("PurchaseReturnInvoiceId");
-
-                    b.ToTable("PurchaseReturnDetails");
-                });
-
-            modelBuilder.Entity("POSSolution.Core.Models.PurchaseReturnInvoice", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("DiscountOnAll")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("GrandTotal")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("OtherCharges")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("PurchaseId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("PurchaseReturnDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ReferencesNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ReturnInvoiceNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("SubTotal")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("SupplierId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalQuantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
-
-                    b.HasIndex("PurchaseId");
-
-                    b.HasIndex("SupplierId");
-
-                    b.ToTable("PurchaseReturnInvoices");
                 });
 
             modelBuilder.Entity("POSSolution.Core.Models.Role", b =>
@@ -713,14 +607,9 @@ namespace POSSolution.Infrastructure.Migrations
                     b.Property<int>("SalesInvoiceId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SalesReturnInvoiceId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("SalesInvoiceId");
-
-                    b.HasIndex("SalesReturnInvoiceId");
 
                     b.ToTable("SalesPayments");
                 });
@@ -764,109 +653,6 @@ namespace POSSolution.Infrastructure.Migrations
                     b.HasIndex("CustomerId");
 
                     b.ToTable("SalesReturns");
-                });
-
-            modelBuilder.Entity("POSSolution.Core.Models.SalesReturnDetails", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("DiscountAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("ItemId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ItemName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SalesReturnInvoiceId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Tax")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TaxAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TotalAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("UnitCost")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("UnitPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ItemId");
-
-                    b.HasIndex("SalesReturnInvoiceId");
-
-                    b.ToTable("SalesReturnDetails");
-                });
-
-            modelBuilder.Entity("POSSolution.Core.Models.SalesReturnInvoice", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int?>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("DiscountOnAll")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("GrandTotal")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("OtherCharges")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("SalesInvoiceId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("SalesReturnDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("SalesReturnInvoiceNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("SubTotal")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("TotalQuantity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("status")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("SalesInvoiceId");
-
-                    b.ToTable("SalesReturnInvoices");
                 });
 
             modelBuilder.Entity("POSSolution.Core.Models.State", b =>
@@ -1128,55 +914,7 @@ namespace POSSolution.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("POSSolution.Core.Models.PurchaseReturnInvoice", null)
-                        .WithMany("PurchasePayment")
-                        .HasForeignKey("PurchaseReturnInvoiceId");
-
                     b.Navigation("PurchaseInvoice");
-                });
-
-            modelBuilder.Entity("POSSolution.Core.Models.PurchaseReturnDetails", b =>
-                {
-                    b.HasOne("POSSolution.Core.Models.Item", "Items")
-                        .WithMany()
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("POSSolution.Core.Models.PurchaseReturnInvoice", "PurchaseReturnInvoice")
-                        .WithMany("PurchaseDetails")
-                        .HasForeignKey("PurchaseReturnInvoiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Items");
-
-                    b.Navigation("PurchaseReturnInvoice");
-                });
-
-            modelBuilder.Entity("POSSolution.Core.Models.PurchaseReturnInvoice", b =>
-                {
-                    b.HasOne("POSSolution.Core.Models.CompanyInfo", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("POSSolution.Core.Models.PurchaseInvoice", "PurchaseInvoice")
-                        .WithMany()
-                        .HasForeignKey("PurchaseId");
-
-                    b.HasOne("POSSolution.Core.Models.Supplier", "Supplier")
-                        .WithMany()
-                        .HasForeignKey("SupplierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
-
-                    b.Navigation("PurchaseInvoice");
-
-                    b.Navigation("Supplier");
                 });
 
             modelBuilder.Entity("POSSolution.Core.Models.SalesDetails", b =>
@@ -1227,10 +965,6 @@ namespace POSSolution.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("POSSolution.Core.Models.SalesReturnInvoice", null)
-                        .WithMany("SalesPayments")
-                        .HasForeignKey("SalesReturnInvoiceId");
-
                     b.Navigation("SalesInvoice");
                 });
 
@@ -1243,46 +977,6 @@ namespace POSSolution.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("POSSolution.Core.Models.SalesReturnDetails", b =>
-                {
-                    b.HasOne("POSSolution.Core.Models.Item", "Items")
-                        .WithMany()
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("POSSolution.Core.Models.SalesReturnInvoice", "SalesReturnInvoice")
-                        .WithMany("SalesReturnDetails")
-                        .HasForeignKey("SalesReturnInvoiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Items");
-
-                    b.Navigation("SalesReturnInvoice");
-                });
-
-            modelBuilder.Entity("POSSolution.Core.Models.SalesReturnInvoice", b =>
-                {
-                    b.HasOne("POSSolution.Core.Models.CompanyInfo", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId");
-
-                    b.HasOne("POSSolution.Core.Models.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId");
-
-                    b.HasOne("POSSolution.Core.Models.SalesInvoice", "SalesInvoice")
-                        .WithMany()
-                        .HasForeignKey("SalesInvoiceId");
-
-                    b.Navigation("Company");
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("SalesInvoice");
                 });
 
             modelBuilder.Entity("POSSolution.Core.Models.State", b =>
@@ -1368,13 +1062,6 @@ namespace POSSolution.Infrastructure.Migrations
                     b.Navigation("PurchasePayment");
                 });
 
-            modelBuilder.Entity("POSSolution.Core.Models.PurchaseReturnInvoice", b =>
-                {
-                    b.Navigation("PurchaseDetails");
-
-                    b.Navigation("PurchasePayment");
-                });
-
             modelBuilder.Entity("POSSolution.Core.Models.Role", b =>
                 {
                     b.Navigation("Users");
@@ -1390,13 +1077,6 @@ namespace POSSolution.Infrastructure.Migrations
                     b.Navigation("SalesDetails");
 
                     b.Navigation("SalesPayments");
-                });
-
-            modelBuilder.Entity("POSSolution.Core.Models.SalesReturnInvoice", b =>
-                {
-                    b.Navigation("SalesPayments");
-
-                    b.Navigation("SalesReturnDetails");
                 });
 
             modelBuilder.Entity("POSSolution.Core.Models.State", b =>

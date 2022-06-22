@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace POSSolution.Core.Models
 {
-   public class SalesDetails : BaseModel
+   public class SalesReturnDetails : BaseModel
     {
         public string ItemName { get; set; }
         public decimal UnitPrice { get; set; }
@@ -18,9 +18,9 @@ namespace POSSolution.Core.Models
         public decimal DiscountAmount { get; set; }
         public decimal UnitCost { get; set; }
         public decimal TotalAmount { get; set; }
-        [ForeignKey("SalesInvoice")]
-        public int SalesInvoiceId { get; set; }
-        public SalesInvoice SalesInvoice { get; set; }
+        [ForeignKey("SalesReturnInvoice")]
+        public int SalesReturnInvoiceId { get; set; }
+        public SalesReturnInvoice SalesReturnInvoice { get; set; }
 
         [ForeignKey("Item")]
         public int ItemId { get; set; }

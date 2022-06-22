@@ -7,21 +7,19 @@ using System.Threading.Tasks;
 
 namespace POSSolution.Core.Models
 {
-   public class SalesDetails : BaseModel
+   public class PurchaseReturnDetails : BaseModel
     {
         public string ItemName { get; set; }
-        public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
+        public decimal PurchasePrice { get; set; }
+        public decimal Discount { get; set; }
         public decimal Tax { get; set; }
         public decimal TaxAmount { get; set; }
-        public decimal Discount { get; set; }
-        public decimal DiscountAmount { get; set; }
         public decimal UnitCost { get; set; }
         public decimal TotalAmount { get; set; }
-        [ForeignKey("SalesInvoice")]
-        public int SalesInvoiceId { get; set; }
-        public SalesInvoice SalesInvoice { get; set; }
-
+        [ForeignKey("PurchaseInvoice")]
+        public int PurchaseReturnInvoiceId { get; set; }
+        public PurchaseReturnInvoice PurchaseReturnInvoice { get; set; }
         [ForeignKey("Item")]
         public int ItemId { get; set; }
         public Item Items { get; set; }

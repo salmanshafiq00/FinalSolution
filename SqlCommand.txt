@@ -77,3 +77,95 @@ PurchaseDetails {
   "itemId": 1
   
 }
+
+Insert into SalesInvoices Values ('SL1001', 1, 1, 1, '2022-01-01', 20, 200000, 0, 0, 200000, 'nai', null);
+
+SalesDetails [{
+  "id": 0,
+  "itemName": "Mixer",
+  "unitPrice": 30000,
+  "quantity": 50,
+  "tax": 0,
+  "taxAmount":0,
+  "discount": 0,
+  "discountAmount": 0,
+  "unitCost": 30000,
+  "totalAmount": 1500000, 
+  "salesInvoiceId": 1,
+  "itemId": 6  
+},
+{
+  "id": 0,
+  "itemName": "Blender",
+  "unitPrice": 30000,
+  "quantity": 25,
+  "tax": 0,
+  "taxAmount":0,
+  "discount": 0,
+  "discountAmount": 0,
+  "unitCost": 30000,
+  "totalAmount": 1500000, 
+  "salesInvoiceId": 1,
+  "itemId": 7  
+}]
+
+Insert into PurchaseReturnInvoices Values ('PR1001', 1, 1, '2022-01-01', 1, 'Mizan', 10, 20000, 0, 0, 200000,'BadProduct',1)
+
+[{
+  "id": 0,
+  "itemName": "Fridge",
+  "quantity": 12,
+  "purchasePrice": 50000,
+  "discount": 0,
+  "tax": 0,
+  "taxAmount": 0,
+  "unitCost": 50000,
+  "totalAmount": 500000,
+  "purchaseReturnInvoiceId": 1,
+  "itemId": 6
+  
+},
+{
+  "id": 0,
+  "itemName": "Television",
+  "quantity": 10,
+  "purchasePrice": 50000,
+  "discount": 0,
+  "tax": 0,
+  "taxAmount": 0,
+  "unitCost": 50000,
+  "totalAmount": 500000,
+  "purchaseReturnInvoiceId": 1,
+  "itemId": 7
+  
+}]
+Insert into SalesReturnInvoices Values('Sr1001', 1, 1, 1, '2022-01-01', 20, 300000, 0, 0, 300000,'BadProduct', 1)
+
+[{
+  "id": 0,
+  "itemName": "Mixer",
+  "unitPrice": 30000,
+  "quantity": 20,
+  "tax": 0,
+  "taxAmount":0,
+  "discount": 0,
+  "discountAmount": 0,
+  "unitCost": 30000,
+  "totalAmount": 1500000, 
+  "salesReturnInvoiceId": 1,
+  "itemId": 6  
+},
+{
+  "id": 0,
+  "itemName": "Blender",
+  "unitPrice": 30000,
+  "quantity": 25,
+  "tax": 0,
+  "taxAmount":0,
+  "discount": 0,
+  "discountAmount": 0,
+  "unitCost": 30000,
+  "totalAmount": 1500000, 
+  "salesReturnInvoiceId": 1,
+  "itemId": 7  
+}]

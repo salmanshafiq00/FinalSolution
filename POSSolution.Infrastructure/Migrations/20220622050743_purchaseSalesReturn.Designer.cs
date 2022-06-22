@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using POSSolution.Infrastructure;
 
 namespace POSSolution.Infrastructure.Migrations
 {
     [DbContext(typeof(POSContext))]
-    partial class POSContextModelSnapshot : ModelSnapshot
+    [Migration("20220622050743_purchaseSalesReturn")]
+    partial class purchaseSalesReturn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -342,6 +344,9 @@ namespace POSSolution.Infrastructure.Migrations
                     b.Property<decimal>("PurchasePrice")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int?>("PurchaseReturnInvoiceId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
@@ -362,6 +367,8 @@ namespace POSSolution.Infrastructure.Migrations
                     b.HasIndex("ItemId");
 
                     b.HasIndex("PurchaseInvoiceId");
+
+                    b.HasIndex("PurchaseReturnInvoiceId");
 
                     b.ToTable("PurchaseDetails");
                 });
@@ -1096,6 +1103,10 @@ namespace POSSolution.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("POSSolution.Core.Models.PurchaseReturnInvoice", null)
+                        .WithMany("PurchaseDetails")
+                        .HasForeignKey("PurchaseReturnInvoiceId");
+
                     b.Navigation("Items");
 
                     b.Navigation("PurchaseInvoice");
@@ -1144,7 +1155,7 @@ namespace POSSolution.Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("POSSolution.Core.Models.PurchaseReturnInvoice", "PurchaseReturnInvoice")
-                        .WithMany("PurchaseDetails")
+                        .WithMany()
                         .HasForeignKey("PurchaseReturnInvoiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

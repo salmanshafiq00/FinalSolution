@@ -10,15 +10,15 @@ namespace POSSolution.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PurchaseDetailsController : BaseController<PurchaseDetails>
+    public class PurchaseReturnDetailsController : BaseController<PurchaseReturnDetails>
     {
         private POSContext _context;
-        public PurchaseDetailsController(POSContext context) : base(context)
+        public PurchaseReturnDetailsController(POSContext context) : base(context)
         {
             _context = context;
         }
         [NonAction]
-        public override async Task<ActionResult<PurchaseDetails>> CreateAsync([FromBody] PurchaseDetails entity)
+        public override async Task<ActionResult<PurchaseReturnDetails>> CreateAsync([FromBody] PurchaseReturnDetails entity)
         {
             try
             {
@@ -28,14 +28,14 @@ namespace POSSolution.API.Controllers
                 }
                 else
                 {
-                    await _context.PurchaseDetails.AddAsync(entity);
-                    int AffectedRow =  await _context.SaveChangesAsync();
+                    await _context.PurchaseReturnDetails.AddAsync(entity);
+                    int AffectedRow = await _context.SaveChangesAsync();
                     if (AffectedRow != 0)
                     {
-                        int QuantityToAdd = _context.PurchaseDetails.Where(w => w.Id == entity.Id).Select(s => s.Quantity).FirstOrDefault();
+                        int QuantityToDispatch = _context.PurchaseReturnDetails.Where(w => w.Id == entity.Id).Select(s => s.Quantity).FirstOrDefault();
                         int itemId = entity.ItemId;
                         Item itemForUpdate = await UpdateStock(itemId);
-                        itemForUpdate.StockQuantity = itemForUpdate.StockQuantity + QuantityToAdd;
+                        itemForUpdate.StockQuantity = itemForUpdate.StockQuantity - QuantityToDispatch;
                         _context.Items.Attach(itemForUpdate);
                         _context.Entry(itemForUpdate).Property(q => q.StockQuantity).IsModified = true;
                         _context.SaveChanges();
@@ -44,12 +44,12 @@ namespace POSSolution.API.Controllers
                     return Ok(entity);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-                //return StatusCode(StatusCodes.Status500InternalServerError,
-                //    "Error creating new  record");
-                throw new Exception(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                   "Error creating new  record");
+
             }
         }
 
@@ -59,12 +59,12 @@ namespace POSSolution.API.Controllers
             return item;
         }
         [HttpPost]
-        [Route("~/api/PurchaseDetails")]
-        public async  Task<ActionResult<PurchaseDetails>> CreateAsync([FromBody] PurchaseDetails[] entities)
+        [Route("~/api/PurchaseReturnDetails")]
+        public async Task<ActionResult<PurchaseReturnDetails>> CreateAsync([FromBody] PurchaseReturnDetails[] entities)
         {
-            foreach (PurchaseDetails entity in entities)
+            foreach (PurchaseReturnDetails entity in entities)
             {
-               await CreateAsync(entity);
+                await CreateAsync(entity);
             }
             return Ok();
         }
