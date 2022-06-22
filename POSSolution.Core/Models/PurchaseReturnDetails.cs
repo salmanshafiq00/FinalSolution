@@ -17,7 +17,7 @@ namespace POSSolution.Core.Models
         public decimal TaxAmount { get; set; }
         public decimal UnitCost { get; set; }
         public decimal TotalAmount { get; set; }
-        [ForeignKey("PurchaseInvoice")]
+        [ForeignKey("PurchaseReturnInvoice")]
         public int PurchaseReturnInvoiceId { get; set; }
         public PurchaseReturnInvoice PurchaseReturnInvoice { get; set; }
         [ForeignKey("Item")]

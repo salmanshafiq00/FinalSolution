@@ -10,12 +10,14 @@ namespace POSSolution.Core.Models
 {
    public class SalesInvoice : BaseModel
     {
-        public string SaleInvoiceNo { get; set; }
+        public string SalesInvoiceNo { get; set; }
         [ForeignKey("Customer")]
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
+        [ForeignKey("CompanyInfo")]
+        public int CompanyInfoId { get; set; }
         public CompanyInfo Company { get; set; }
-        public SalesStatus status { get; set; }
+        public SalesStatus Status { get; set; }
         public DateTime SalesDate { get; set; }
         public int TotalQuantity { get; set; }
         public decimal SubTotal { get; set; }

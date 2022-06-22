@@ -6,7 +6,8 @@ namespace POSSolution.Core.Models
     {
         public string CustomerName { get; set; }
         public string Email { get; set; }
-        public string PhoneNumber { get; set; }
+        public string Phone { get; set; }
+        public int  Mobile { get; set; }
         public string TAXNumber { get; set; }
         public decimal OpeningBlanace { get; set; }
 

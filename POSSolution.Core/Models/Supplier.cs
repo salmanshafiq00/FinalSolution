@@ -11,7 +11,7 @@ namespace POSSolution.Core.Models
     {
         public string Name { get; set; }
         public int Mobile { get; set; }
-        public int  Phone { get; set; }
+        public string  Phone { get; set; }
         public string Email { get; set; }
         public string TaxNumber { get; set; }
         public decimal OpeningBalance { get; set; }
@@ -26,6 +26,5 @@ namespace POSSolution.Core.Models
         public City City { get; set; }
         public string Postcode { get; set; }
         public string  Address { get; set; }
-        public List<Purchase> Purchases { get; set; }
     }
 }

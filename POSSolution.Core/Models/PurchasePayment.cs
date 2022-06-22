@@ -12,7 +12,7 @@ namespace POSSolution.Core.Models
     {
         public PaymentType PaymentType { get; set; }
         public DateTime PaymentDate { get; set; }
-        public Decimal Amount { get; set; }
+        public decimal Amount { get; set; }
         public decimal DueAmount { get; set; }
         public string PaymentNote { get; set; }
         [ForeignKey("PurchaseInvoice")]

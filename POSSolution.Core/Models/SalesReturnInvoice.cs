@@ -15,7 +15,7 @@ namespace POSSolution.Core.Models
         public int? CustomerId { get; set; }
         public Customer Customer { get; set; }
         public CompanyInfo Company { get; set; }
-        public SalesReturnStatus status { get; set; }
+        public SalesReturnStatus Status { get; set; }
         public DateTime SalesReturnDate { get; set; }
         public int TotalQuantity { get; set; }
         public decimal SubTotal { get; set; }
@@ -24,7 +24,7 @@ namespace POSSolution.Core.Models
         public decimal GrandTotal { get; set; }
         public string Note { get; set; }
         [ForeignKey("SalesInvoice")]
-        public int? SalesInvoiceId { get; set; }
+        public int SalesInvoiceId { get; set; }
         public SalesInvoice SalesInvoice { get; set; }
         public List<SalesReturnDetails> SalesReturnDetails { get; private set; } = new List<SalesReturnDetails>();
         public List<SalesPayment> SalesPayments { get; private set; } = new List<SalesPayment>();

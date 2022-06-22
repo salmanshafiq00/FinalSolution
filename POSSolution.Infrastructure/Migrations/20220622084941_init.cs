@@ -77,18 +77,6 @@ namespace POSSolution.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Sales",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Sales", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Units",
                 columns: table => new
                 {
@@ -154,7 +142,8 @@ namespace POSSolution.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Mobile = table.Column<int>(type: "int", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RoleId = table.Column<int>(type: "int", nullable: false),
                     ProfilePicture = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -247,7 +236,7 @@ namespace POSSolution.Infrastructure.Migrations
                     CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StateId = table.Column<int>(type: "int", nullable: true),
                     CityId = table.Column<int>(type: "int", nullable: true),
-                    Phone = table.Column<int>(type: "int", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Mobile = table.Column<int>(type: "int", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     VATNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -279,7 +268,8 @@ namespace POSSolution.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CustomerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Mobile = table.Column<int>(type: "int", nullable: false),
                     TAXNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OpeningBlanace = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CountryId = table.Column<int>(type: "int", nullable: true),
@@ -319,7 +309,7 @@ namespace POSSolution.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Mobile = table.Column<int>(type: "int", nullable: false),
-                    Phone = table.Column<int>(type: "int", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TaxNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OpeningBalance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -358,63 +348,29 @@ namespace POSSolution.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SaleInvoiceNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SalesInvoiceNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CustomerId = table.Column<int>(type: "int", nullable: false),
-                    CompanyId = table.Column<int>(type: "int", nullable: true),
-                    status = table.Column<int>(type: "int", nullable: false),
+                    CompanyInfoId = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     SalesDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TotalQuantity = table.Column<int>(type: "int", nullable: false),
                     SubTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     OtherCharges = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     DiscountOnAll = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     GrandTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SalesId = table.Column<int>(type: "int", nullable: true)
+                    Note = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SalesInvoices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SalesInvoices_CompanyInfos_CompanyId",
-                        column: x => x.CompanyId,
+                        name: "FK_SalesInvoices_CompanyInfos_CompanyInfoId",
+                        column: x => x.CompanyInfoId,
                         principalTable: "CompanyInfos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_SalesInvoices_Customers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SalesInvoices_Sales_SalesId",
-                        column: x => x.SalesId,
-                        principalTable: "Sales",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SalesReturns",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
-                    status = table.Column<int>(type: "int", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    OtherCharges = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    DsicountOnAll = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PaymentType = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PaymentNote = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SalesReturns", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SalesReturns_Customers_CustomerId",
+                        name: "FK_SalesInvoices_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "Id",
@@ -458,25 +414,6 @@ namespace POSSolution.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Purchases",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SupplierId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Purchases", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Purchases_Suppliers_SupplierId",
-                        column: x => x.SupplierId,
-                        principalTable: "Suppliers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "SalesDetails",
                 columns: table => new
                 {
@@ -491,11 +428,18 @@ namespace POSSolution.Infrastructure.Migrations
                     DiscountAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     UnitCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    SalesInvoiceId = table.Column<int>(type: "int", nullable: false)
+                    SalesInvoiceId = table.Column<int>(type: "int", nullable: false),
+                    ItemId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SalesDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SalesDetails_Items_ItemId",
+                        column: x => x.ItemId,
+                        principalTable: "Items",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_SalesDetails_SalesInvoices_SalesInvoiceId",
                         column: x => x.SalesInvoiceId,
@@ -505,22 +449,41 @@ namespace POSSolution.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SalesPayments",
+                name: "SalesReturnInvoices",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PaymentType = table.Column<int>(type: "int", nullable: false),
-                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    DueAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    SalesReturnInvoiceNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CustomerId = table.Column<int>(type: "int", nullable: true),
+                    CompanyId = table.Column<int>(type: "int", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    SalesReturnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TotalQuantity = table.Column<int>(type: "int", nullable: false),
+                    SubTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    OtherCharges = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DiscountOnAll = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    GrandTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SalesInvoiceId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SalesPayments", x => x.Id);
+                    table.PrimaryKey("PK_SalesReturnInvoices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SalesPayments_SalesInvoices_SalesInvoiceId",
+                        name: "FK_SalesReturnInvoices_CompanyInfos_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "CompanyInfos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_SalesReturnInvoices_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_SalesReturnInvoices_SalesInvoices_SalesInvoiceId",
                         column: x => x.SalesInvoiceId,
                         principalTable: "SalesInvoices",
                         principalColumn: "Id",
@@ -562,6 +525,114 @@ namespace POSSolution.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PurchaseReturnInvoices",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ReturnInvoiceNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
+                    SupplierId = table.Column<int>(type: "int", nullable: false),
+                    PurchaseReturnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    ReferencesNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TotalQuantity = table.Column<int>(type: "int", nullable: false),
+                    SubTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    OtherCharges = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DiscountOnAll = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    GrandTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PurchaseInvoiceId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PurchaseReturnInvoices", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PurchaseReturnInvoices_CompanyInfos_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "CompanyInfos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PurchaseReturnInvoices_PurchaseInvoices_PurchaseInvoiceId",
+                        column: x => x.PurchaseInvoiceId,
+                        principalTable: "PurchaseInvoices",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PurchaseReturnInvoices_Suppliers_SupplierId",
+                        column: x => x.SupplierId,
+                        principalTable: "Suppliers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SalesPayments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PaymentType = table.Column<int>(type: "int", nullable: false),
+                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DueAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    SalesInvoiceId = table.Column<int>(type: "int", nullable: false),
+                    SalesReturnInvoiceId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SalesPayments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SalesPayments_SalesInvoices_SalesInvoiceId",
+                        column: x => x.SalesInvoiceId,
+                        principalTable: "SalesInvoices",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SalesPayments_SalesReturnInvoices_SalesReturnInvoiceId",
+                        column: x => x.SalesReturnInvoiceId,
+                        principalTable: "SalesReturnInvoices",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SalesReturnDetails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ItemName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    Tax = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TaxAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DiscountAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    UnitCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    SalesReturnInvoiceId = table.Column<int>(type: "int", nullable: false),
+                    ItemId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SalesReturnDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SalesReturnDetails_Items_ItemId",
+                        column: x => x.ItemId,
+                        principalTable: "Items",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SalesReturnDetails_SalesReturnInvoices_SalesReturnInvoiceId",
+                        column: x => x.SalesReturnInvoiceId,
+                        principalTable: "SalesReturnInvoices",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PurchasePayments",
                 columns: table => new
                 {
@@ -572,7 +643,8 @@ namespace POSSolution.Infrastructure.Migrations
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     DueAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     PaymentNote = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PurchaseInvoiceId = table.Column<int>(type: "int", nullable: false)
+                    PurchaseInvoiceId = table.Column<int>(type: "int", nullable: false),
+                    PurchaseReturnInvoiceId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -581,6 +653,46 @@ namespace POSSolution.Infrastructure.Migrations
                         name: "FK_PurchasePayments_PurchaseInvoices_PurchaseInvoiceId",
                         column: x => x.PurchaseInvoiceId,
                         principalTable: "PurchaseInvoices",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PurchasePayments_PurchaseReturnInvoices_PurchaseReturnInvoiceId",
+                        column: x => x.PurchaseReturnInvoiceId,
+                        principalTable: "PurchaseReturnInvoices",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PurchaseReturnDetails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ItemName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    PurchasePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Tax = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TaxAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    UnitCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PurchaseReturnInvoiceId = table.Column<int>(type: "int", nullable: false),
+                    ItemId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PurchaseReturnDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PurchaseReturnDetails_Items_ItemId",
+                        column: x => x.ItemId,
+                        principalTable: "Items",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PurchaseReturnDetails_PurchaseReturnInvoices_PurchaseReturnInvoiceId",
+                        column: x => x.PurchaseReturnInvoiceId,
+                        principalTable: "PurchaseReturnInvoices",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -661,9 +773,39 @@ namespace POSSolution.Infrastructure.Migrations
                 column: "PurchaseInvoiceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Purchases_SupplierId",
-                table: "Purchases",
+                name: "IX_PurchasePayments_PurchaseReturnInvoiceId",
+                table: "PurchasePayments",
+                column: "PurchaseReturnInvoiceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PurchaseReturnDetails_ItemId",
+                table: "PurchaseReturnDetails",
+                column: "ItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PurchaseReturnDetails_PurchaseReturnInvoiceId",
+                table: "PurchaseReturnDetails",
+                column: "PurchaseReturnInvoiceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PurchaseReturnInvoices_CompanyId",
+                table: "PurchaseReturnInvoices",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PurchaseReturnInvoices_PurchaseInvoiceId",
+                table: "PurchaseReturnInvoices",
+                column: "PurchaseInvoiceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PurchaseReturnInvoices_SupplierId",
+                table: "PurchaseReturnInvoices",
                 column: "SupplierId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SalesDetails_ItemId",
+                table: "SalesDetails",
+                column: "ItemId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SalesDetails_SalesInvoiceId",
@@ -671,9 +813,9 @@ namespace POSSolution.Infrastructure.Migrations
                 column: "SalesInvoiceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SalesInvoices_CompanyId",
+                name: "IX_SalesInvoices_CompanyInfoId",
                 table: "SalesInvoices",
-                column: "CompanyId");
+                column: "CompanyInfoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SalesInvoices_CustomerId",
@@ -681,19 +823,39 @@ namespace POSSolution.Infrastructure.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SalesInvoices_SalesId",
-                table: "SalesInvoices",
-                column: "SalesId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_SalesPayments_SalesInvoiceId",
                 table: "SalesPayments",
                 column: "SalesInvoiceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SalesReturns_CustomerId",
-                table: "SalesReturns",
+                name: "IX_SalesPayments_SalesReturnInvoiceId",
+                table: "SalesPayments",
+                column: "SalesReturnInvoiceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SalesReturnDetails_ItemId",
+                table: "SalesReturnDetails",
+                column: "ItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SalesReturnDetails_SalesReturnInvoiceId",
+                table: "SalesReturnDetails",
+                column: "SalesReturnInvoiceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SalesReturnInvoices_CompanyId",
+                table: "SalesReturnInvoices",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SalesReturnInvoices_CustomerId",
+                table: "SalesReturnInvoices",
                 column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SalesReturnInvoices_SalesInvoiceId",
+                table: "SalesReturnInvoices",
+                column: "SalesInvoiceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_States_CountryId",
@@ -733,7 +895,7 @@ namespace POSSolution.Infrastructure.Migrations
                 name: "PurchasePayments");
 
             migrationBuilder.DropTable(
-                name: "Purchases");
+                name: "PurchaseReturnDetails");
 
             migrationBuilder.DropTable(
                 name: "SalesDetails");
@@ -742,7 +904,7 @@ namespace POSSolution.Infrastructure.Migrations
                 name: "SalesPayments");
 
             migrationBuilder.DropTable(
-                name: "SalesReturns");
+                name: "SalesReturnDetails");
 
             migrationBuilder.DropTable(
                 name: "Users");
@@ -751,16 +913,19 @@ namespace POSSolution.Infrastructure.Migrations
                 name: "ExpenseCategories");
 
             migrationBuilder.DropTable(
+                name: "PurchaseReturnInvoices");
+
+            migrationBuilder.DropTable(
                 name: "Items");
 
             migrationBuilder.DropTable(
-                name: "PurchaseInvoices");
-
-            migrationBuilder.DropTable(
-                name: "SalesInvoices");
+                name: "SalesReturnInvoices");
 
             migrationBuilder.DropTable(
                 name: "Roles");
+
+            migrationBuilder.DropTable(
+                name: "PurchaseInvoices");
 
             migrationBuilder.DropTable(
                 name: "Brands");
@@ -772,6 +937,9 @@ namespace POSSolution.Infrastructure.Migrations
                 name: "Units");
 
             migrationBuilder.DropTable(
+                name: "SalesInvoices");
+
+            migrationBuilder.DropTable(
                 name: "Suppliers");
 
             migrationBuilder.DropTable(
@@ -779,9 +947,6 @@ namespace POSSolution.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Customers");
-
-            migrationBuilder.DropTable(
-                name: "Sales");
 
             migrationBuilder.DropTable(
                 name: "Cities");

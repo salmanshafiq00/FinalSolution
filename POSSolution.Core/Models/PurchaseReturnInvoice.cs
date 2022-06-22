@@ -28,7 +28,7 @@ namespace POSSolution.Core.Models
         public decimal GrandTotal { get; set; }
         public string Note { get; set; }
         [ForeignKey("PurchaseInvoice")]
-        public int? PurchaseId { get; set; }
+        public int? PurchaseInvoiceId { get; set; }
         public PurchaseInvoice PurchaseInvoice { get; set; }
         public List<PurchaseReturnDetails> PurchaseDetails { get; private set; } = new List<PurchaseReturnDetails>();
         public List<PurchasePayment> PurchasePayment { get; private set; } = new List<PurchasePayment>();

@@ -19,7 +19,7 @@ namespace POSSolution.Core.Models
         public int? CityId { get; set; }
         public City City { get; set; }
 
-        public int Phone { get; set; }
+        public string Phone { get; set; }
         public int Mobile { get; set; }
         public string Email { get; set; }
         public string VATNumber { get; set; }

@@ -1,12 +1,14 @@
 insert into dbo.Brands (Name, Desciption) values
 ('Walton', 'National brand'), 
-('Samsung', 'International')
+('Samsung', 'International'),
+('Lg', 'Int Brand')
 ;
 go
 
 insert into dbo.Categories values
 ('Mobile', 'Mobile brand'),
-('TV', 'TV catagory');
+('TV', 'TV catagory'),
+('Sports', 'AllSports');
 go
 
 insert into dbo.Countries values
@@ -33,36 +35,37 @@ insert into dbo.Cities values
 ('Gazipur', 1),
 ('KhalishPur', 1);
 go
-Insert into Unit Values('Kg', 'Kilogram'), ('ltr', 'Liter');
+Insert into Units Values('Kg', 'Kilogram'), ('ltr', 'Liter');
 
 go
 insert into dbo.CompanyInfos values
-('Arif Company Ltd',1,1,0238542,01812345678,'ar@gmail.com','V123','TXN123','null'),
-('Miza Bro Ltd',2,2 ,0238543,01812345679,'miza@gmail.com','V124','TXN124','null'),
-('Shofi Bros Ltd',3,3 ,0238533,01812345689,'shofi@gmail.com','V125','TXN125','null'),
-('Ray Bro Ltd',4,4,0238555,01812345655,'ray@gmail.com','V126','TXN126','null');
+('Arif Company Ltd',1,1,'0238542',01812345678,'ar@gmail.com','V123','TXN123','null')
 
+Go
 
 insert into dbo.Customers values
-('Arif','ar@gmail.com','02123456','TXN222',300.00,1,1,1,'Z123','Hatimara'),
-('Miza','miza@gmail.com','02123457','TXN223',300.00,2,2,2,'Z124','Ghoramara'),
-('Shofi','shofi@gmail.com','02123458','TXN224',300.00,3,3,3,'Z125','Gorumara');
+('Arif','ar@gmail.com', '02123456', 0123456, 'TXN222',300.00,1,1,1,'Z123','Hatimara'),
+('Miza','miza@gmail.com','02123457',0123456, 'TXN223',300.00,2,2,2,'Z124','Ghoramara'),
+('Shofi','shofi@gmail.com','02123458',0123456, 'TXN224',300.00,3,3,3,'Z125','Gorumara');
 
+GO
 insert into dbo.Suppliers values
-('Arif', 0181123456 , 02123456 , 'ar@gmail.com','TXN123', 300.00, 1,1,1,'Z123', 'Hatimara'),
-('Ray', 0181123457 , 02123457 , 'ray@gmail.com','TXN124', 300.00, 2,2,2,'Z124', 'Veramara'),
-('Miza', 0181123458 , 02123458 , 'miza@gmail.com','TXN125', 300.00, 3,3,3,'Z125', 'Gorumara');
+('Arif', 0181123456 , '02123456' , 'ar@gmail.com','TXN123', 300.00, 1,1,1,'Z123', 'Hatimara'),
+('Ray', 0181123457 ,'02123457' , 'ray@gmail.com','TXN124', 300.00, 2,2,2,'Z124', 'Veramara'),
+('Miza', 0181123458 , '02123458' , 'miza@gmail.com','TXN125', 300.00, 3,3,3,'Z125', 'Gorumara');
 
+Go
 Insert into PurchaseInvoices Values ('IN1003', 1, 2, '2022-12-12', 1, 'Hello', 10, 500000, 0, 0, 500000, 'Tata')
 Insert into PurchaseInvoices Values ('IN1004', 1, 2, '2022-12-12', 1, 'Hello', 15, 100000, 0, 0, 100000, 'Tatatata')
 Insert into PurchaseInvoices Values ('IN1005', 1, 2, '2022-12-12', 1, 'Hello', 20, 300000, 0, 0, 300000, 'Tatass')
 
-
+Go
 insert into dbo.Items values
 ('Walton','W-123',1,1,1,'M-W123',1,1000,'2022/02/02','A123456','Mobile','null',0,20000.00,10,1,30000.00,4500.00),
 ('Samsung','Sg-123',2,2,1,'M-Sg123',2,2000,'2022/02/02','A123455','Mobile','null',0,20000.00,10,1,30000.00,4500.00),
-('Oppo','Op-123',3,3,2,'M-Op123',3,3000,'2022/02/02','A123457','Mobile','null',0,20000.00,10,1,30000.00,4500.00);
+('Oppo','Op-123',3,3,2,'M-Op123',2,3000,'2022/02/02','A123457','Mobile','null',0,20000.00,10,1,30000.00,4500.00);
 
+GO
 PurchaseDetails {
   "id": 0,
   "itemName": "Fridge",
@@ -77,9 +80,12 @@ PurchaseDetails {
   "itemId": 1
   
 }
+Go
+Insert into SalesInvoices Values ('SL1001', 1, 1, 1, '2022-01-01', 50, 200000, 0, 0, 200000, 'nai');
+Insert into SalesInvoices Values ('SL1002', 2, 1, 1, '2022-01-01', 60, 200000, 0, 0, 200000, 'nai');
+Insert into SalesInvoices Values ('SL1003', 3, 1, 1, '2022-01-01', 30, 200000, 0, 0, 200000, 'nai');
 
-Insert into SalesInvoices Values ('SL1001', 1, 1, 1, '2022-01-01', 20, 200000, 0, 0, 200000, 'nai', null);
-
+GO
 SalesDetails [{
   "id": 0,
   "itemName": "Mixer",
@@ -108,9 +114,11 @@ SalesDetails [{
   "salesInvoiceId": 1,
   "itemId": 7  
 }]
-
+Go
 Insert into PurchaseReturnInvoices Values ('PR1001', 1, 1, '2022-01-01', 1, 'Mizan', 10, 20000, 0, 0, 200000,'BadProduct',1)
-
+Insert into PurchaseReturnInvoices Values ('PR1002', 1, 2, '2022-01-01', 1, 'Mizan', 20, 20000, 0, 0, 200000,'BadProduct',2)
+Insert into PurchaseReturnInvoices Values ('PR1003', 1, 2, '2022-01-01', 1, 'Mizan', 15, 20000, 0, 0, 200000,'BadProduct',3)
+Go
 [{
   "id": 0,
   "itemName": "Fridge",
@@ -139,8 +147,11 @@ Insert into PurchaseReturnInvoices Values ('PR1001', 1, 1, '2022-01-01', 1, 'Miz
   "itemId": 7
   
 }]
+Go
 Insert into SalesReturnInvoices Values('Sr1001', 1, 1, 1, '2022-01-01', 20, 300000, 0, 0, 300000,'BadProduct', 1)
-
+Insert into SalesReturnInvoices Values('Sr1001', 2, 1, 1, '2022-01-01', 10, 300000, 0, 0, 300000,'BadProduct', 2)
+Insert into SalesReturnInvoices Values('Sr1001', 3, 1, 1, '2022-01-01', 15, 300000, 0, 0, 300000,'BadProduct', 3)
+Go
 [{
   "id": 0,
   "itemName": "Mixer",
