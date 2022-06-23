@@ -5,9 +5,9 @@ namespace POSSolution.Core.Models
     public class Customer : BaseModel
     {
         public string CustomerName { get; set; }
-        public string Email { get; set; }
         public string Phone { get; set; }
         public int  Mobile { get; set; }
+        public string Email { get; set; }
         public string TAXNumber { get; set; }
         public decimal OpeningBlanace { get; set; }
 

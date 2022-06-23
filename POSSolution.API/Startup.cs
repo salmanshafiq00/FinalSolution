@@ -26,7 +26,10 @@ namespace POSSolution.API
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddCors(options => options.AddPolicy("posPolicy", policy => 
+            policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader()));
             services.AddControllers(options =>
             {
                 options.OutputFormatters.RemoveType<SystemTextJsonOutputFormatter>();
@@ -53,7 +56,7 @@ namespace POSSolution.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "POSSolution.API v1"));
             }
-
+            app.UseCors();
             app.UseRouting();
 
             app.UseAuthorization();

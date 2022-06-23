@@ -13,6 +13,7 @@ namespace POSSolution.Core.Models
         public int Quantity { get; set; }
         public decimal PurchasePrice { get; set; }
         public decimal Discount { get; set; }
+        public decimal DiscountAmount  { get; set; }
         public decimal Tax { get; set; }
         public decimal TaxAmount { get; set; }
         public decimal UnitCost { get; set; }

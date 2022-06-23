@@ -9,7 +9,7 @@ namespace POSSolution.Core.Models
 {
    public  class CompanyInfo: BaseModel
     {
-        public String CompanyName { get; set; }
+        public string CompanyName { get; set; }
 
         [ForeignKey("State")]
         public int? StateId { get; set; }

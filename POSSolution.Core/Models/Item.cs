@@ -30,7 +30,7 @@ namespace POSSolution.Core.Models
         public string ImagePath { get; set; }
         public int StockQuantity { get; set; }
         public decimal PurchasePrice { get; set; }
-        public Decimal Tax { get; set; }
+        public decimal Tax { get; set; }
         public TaxType TaxType { get; set; }
         public decimal SalesPrice { get; set; }
         public decimal FinalPrice { get; set; }

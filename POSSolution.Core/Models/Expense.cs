@@ -14,7 +14,7 @@ namespace POSSolution.Core.Models
         public int ExpenseCategoryId { get; set; }
         public ExpenseCategory ExpenseCategory { get; set; }
         public string ExpenseFor { get; set; }
-        public decimal Ammount { get; set; }
+        public decimal Amount { get; set; }
         public string ReferenceNo { get; set; }
         public string Note { get; set; }
     }

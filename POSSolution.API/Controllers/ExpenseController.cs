@@ -7,7 +7,7 @@ namespace POSSolution.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ExpenseController : BaseController<Brand>
+    public class ExpenseController : BaseController<Expense>
     {
         public ExpenseController(POSContext context) : base(context)
         {

@@ -125,6 +125,7 @@ Go
   "quantity": 12,
   "purchasePrice": 50000,
   "discount": 0,
+  "discountAmount":0;
   "tax": 0,
   "taxAmount": 0,
   "unitCost": 50000,
@@ -139,6 +140,7 @@ Go
   "quantity": 10,
   "purchasePrice": 50000,
   "discount": 0,
+  "discountAmount":0;
   "tax": 0,
   "taxAmount": 0,
   "unitCost": 50000,

@@ -14,6 +14,8 @@ namespace POSSolution.Core.Models
         [ForeignKey("Customer")]
         public int? CustomerId { get; set; }
         public Customer Customer { get; set; }
+        [ForeignKey("CompanyInfo")]
+        public int CompanyInfoId { get; set; }
         public CompanyInfo Company { get; set; }
         public SalesReturnStatus Status { get; set; }
         public DateTime SalesReturnDate { get; set; }
